@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "818753284643",
+    "project_id": "bingefolio",
+    "storage_bucket": "bingefolio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:818753284643:android:321516fea4dd4b88ab1f96",
+        "android_client_info": {
+          "package_name": "com.example.surffolio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4qk-eJun9akL7jE5fQre_gm7DNcYkMf0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
