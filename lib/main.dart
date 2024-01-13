@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:rive/rive.dart';
+import 'package:surffolio/loginpage.dart';
 import 'firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'BingeFolio'),
+      home: const LoginPage(),
     );
   }
 }
@@ -181,8 +182,8 @@ db
 
   Future<bool> likePortfolio(portfolioId, likes)async {
 
-    //   genericLoginPopup();
-    // return false;
+      genericLoginPopup("You need to login or signup to Bingefolio before liking a portfolio. Get onboard now!");
+    return false;
 
     if(myLikes.contains(portfolioId)){
       return false;
@@ -193,18 +194,22 @@ db
     return true;
   }
 
-  Future<dynamic> genericLoginPopup() {
+  Future<dynamic> genericLoginPopup(String titleMessage) {
     return showDialog(context: context, builder: (context){
       return AlertDialog(
 content:  Container(
-        child: const Text("Login Karle"),
+        child: Text(titleMessage, style: GoogleFonts.lato(textStyle: TextStyle(fontWeight: FontWeight.w300, fontSize: 24)),),
         
       ),
       actions: [
         OutlinedButton(onPressed: (){
           Navigator.pop(context);
         }, child: const Text("Cancel")),
-        OutlinedButton(onPressed: (){}, child: const Text("Login"))
+        OutlinedButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context){
+            return LoginPage();
+          }));
+        }, child: const Text("Login/Create an Account")),
 
       ],
       );
@@ -345,158 +350,157 @@ Future<void> openPortfolio(url)async{
         },
       ),
 floatingActionButton: FloatingActionButton(onPressed: (){
-  // _incrementCounter();
-    //  genericLoginPopup();
+      genericLoginPopup("You need to login or signup to Bingefolio before adding your portfolio. Get onboard now!");
 
-  showDialog(context: context, builder: (context)=>AlertDialog(
+//   showDialog(context: context, builder: (context)=>AlertDialog(
  
-    backgroundColor: Colors.white,
-    content: Container(
-      color: Colors.transparent,
-      width: 600,
-      child: Form(
+//     backgroundColor: Colors.white,
+//     content: Container(
+//       color: Colors.transparent,
+//       width: 600,
+//       child: Form(
         
-        key: formKey,child: Column(children: [
-        Text("Submit Your Portfolio",style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),),
-        const SizedBox(height: 50,),
-          TextFormField(
-            controller: urlController,
-            validator: (value) {
-              bool isURLValid =  value!.length > 3;
-              if(!isURLValid){
-                 return "Invalid URL!";
-              }
-              return null;
-            },
-  decoration: const InputDecoration(
-    border: OutlineInputBorder(),
-    labelText: 'Enter your portfolio url',
+//         key: formKey,child: Column(children: [
+//         Text("Submit Your Portfolio",style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.w600)),),
+//         const SizedBox(height: 50,),
+//           TextFormField(
+//             controller: urlController,
+//             validator: (value) {
+//               bool isURLValid =  value!.length > 3;
+//               if(!isURLValid){
+//                  return "Invalid URL!";
+//               }
+//               return null;
+//             },
+//   decoration: const InputDecoration(
+//     border: OutlineInputBorder(),
+//     labelText: 'Enter your portfolio url',
     
-  ),
-),
-const SizedBox(height: 10,),
-          TextFormField(
-            validator: (value){
-              if(value!.length < 3){
-                return "Invalid Name!";
-              }
-              return null;
-            },
-            controller: nameController,
-  decoration: const InputDecoration(
+//   ),
+// ),
+// const SizedBox(height: 10,),
+//           TextFormField(
+//             validator: (value){
+//               if(value!.length < 3){
+//                 return "Invalid Name!";
+//               }
+//               return null;
+//             },
+//             controller: nameController,
+//   decoration: const InputDecoration(
     
-    border: OutlineInputBorder(),
-    labelText: 'Enter your name',
-  ),
-),
-const SizedBox(height: 20,),
+//     border: OutlineInputBorder(),
+//     labelText: 'Enter your name',
+//   ),
+// ),
+// const SizedBox(height: 20,),
 
-DropdownButtonFormField(
+// DropdownButtonFormField(
   
   
-  decoration: const InputDecoration(
-    border: OutlineInputBorder(),
-    labelText: 'You are a...',
-  ),
+//   decoration: const InputDecoration(
+//     border: OutlineInputBorder(),
+//     labelText: 'You are a...',
+//   ),
 
 
 
   
-  value: 1,
-  items: const [
-  DropdownMenuItem(
+//   value: 1,
+//   items: const [
+//   DropdownMenuItem(
    
-    value: 2,
-    child: Text("Frontend Developer")),
-  DropdownMenuItem(
-    value: 1,
-    child: Text("Backend Developer")),
-  DropdownMenuItem(
-    value: 4,
-    child: Text("Mobile Developer")),
-  DropdownMenuItem(
-    value: 3,
-    child: Text("Fullstack Developer")),
+//     value: 2,
+//     child: Text("Frontend Developer")),
+//   DropdownMenuItem(
+//     value: 1,
+//     child: Text("Backend Developer")),
+//   DropdownMenuItem(
+//     value: 4,
+//     child: Text("Mobile Developer")),
+//   DropdownMenuItem(
+//     value: 3,
+//     child: Text("Fullstack Developer")),
   
-], onChanged: (item){
-    selectedDevType = developerType[item!-1];
+// ], onChanged: (item){
+//     selectedDevType = developerType[item!-1];
 
-})
-      ,
-      const SizedBox(height: 20,),
-      DropdownButtonFormField(
-  decoration: const InputDecoration(
-    border: OutlineInputBorder(),
-    labelText: 'Portfolio made with',
-  ),
+// })
+//       ,
+//       const SizedBox(height: 20,),
+//       DropdownButtonFormField(
+//   decoration: const InputDecoration(
+//     border: OutlineInputBorder(),
+//     labelText: 'Portfolio made with',
+//   ),
 
 
-  value: 1,
-  items: const [
-  DropdownMenuItem(
-    value: 1,
-    child: Text("Angular")),
-  DropdownMenuItem(
-    value: 2,
-    child: Text("Flutter")),
-  DropdownMenuItem(
-    value: 5,
-    child: Text("React")),
-  DropdownMenuItem(
-    value: 3,
-    child: Text("HTML/CSS")),
-      DropdownMenuItem(
-    value: 4,
-    child: Text("NextJS")),
+//   value: 1,
+//   items: const [
+//   DropdownMenuItem(
+//     value: 1,
+//     child: Text("Angular")),
+//   DropdownMenuItem(
+//     value: 2,
+//     child: Text("Flutter")),
+//   DropdownMenuItem(
+//     value: 5,
+//     child: Text("React")),
+//   DropdownMenuItem(
+//     value: 3,
+//     child: Text("HTML/CSS")),
+//       DropdownMenuItem(
+//     value: 4,
+//     child: Text("NextJS")),
   
-], onChanged: (item){
-  selectedPortfolioType = techStacks[item!-1];
-})
-      ,
-      const SizedBox(height: 20,),
-      OutlinedButton(
+// ], onChanged: (item){
+//   selectedPortfolioType = techStacks[item!-1];
+// })
+//       ,
+//       const SizedBox(height: 20,),
+//       OutlinedButton(
         
-        onPressed: (){
+//         onPressed: (){
        
-                // showDialog(context: context, builder: (context){
-                //   return AlertDialog(
-                //     content: Container(
-                //       child: Center(child: Text("Portfolio created successfully!")),
-                //     ),
-                //   );
-                // });
+//                 // showDialog(context: context, builder: (context){
+//                 //   return AlertDialog(
+//                 //     content: Container(
+//                 //       child: Center(child: Text("Portfolio created successfully!")),
+//                 //     ),
+//                 //   );
+//                 // });
     
-          if(formKey.currentState!.validate()){
-              if (kDebugMode) {
-                print("${urlController.text} , ${nameController.text}, $selectedDevType, $selectedPortfolioType");
-              }
-        createPortfolio();
-        Navigator.pop(context);
-        Fluttertoast.showToast(
-          toastLength: Toast.LENGTH_SHORT,
-          timeInSecForIosWeb: 2,
-          gravity: ToastGravity.CENTER,
-          msg: "Portfolio created succesfully. It will be live within 6 hours.",
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          webBgColor: '#E0B0FF',
-          webPosition: "center"
+//           if(formKey.currentState!.validate()){
+//               if (kDebugMode) {
+//                 print("${urlController.text} , ${nameController.text}, $selectedDevType, $selectedPortfolioType");
+//               }
+//         createPortfolio();
+//         Navigator.pop(context);
+//         Fluttertoast.showToast(
+//           toastLength: Toast.LENGTH_SHORT,
+//           timeInSecForIosWeb: 2,
+//           gravity: ToastGravity.CENTER,
+//           msg: "Portfolio created succesfully. It will be live within 6 hours.",
+//           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//           webBgColor: '#E0B0FF',
+//           webPosition: "center"
         
         
-        );
-          }
+//         );
+//           }
 
-        }, child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: 200,
-            child: Center(child: Text("Submit Portfolio",style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),))),
-        ))
-      ],
+//         }, child: Padding(
+//           padding: const EdgeInsets.all(8.0),
+//           child: SizedBox(
+//             width: 200,
+//             child: Center(child: Text("Submit Portfolio",style: GoogleFonts.lato(textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),))),
+//         ))
+//       ],
       
-      )
-      ,),
-    ),
-  ));
+//       )
+//       ,),
+//     ),
+//   ));
 
 },
 child: const Icon(
@@ -536,6 +540,7 @@ child: const Icon(
                     children: [
  Padding(
                       padding: const EdgeInsets.only(left:8.0,right: 8.0,top: 24, bottom: 24),
+                   
                       child: SimpleGroupedChips<int>(
                         controller: sortFiltercontroller,
                         onItemSelected: (selected){
@@ -590,6 +595,7 @@ child: const Icon(
                  
                         ],
                       ),
+                   
                     ),
                   
                    SearchBar(searchKey: searchController,onChangeText: (val){
