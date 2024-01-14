@@ -45,6 +45,7 @@ dependencies:
   hive: ^2.2.3
   cached_network_image: ^3.3.1
   rive: ^0.12.4
+  firebase_auth: ^4.16.0
 
 dev_dependencies:
   flutter_test:
