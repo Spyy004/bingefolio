@@ -30,63 +30,129 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-          child: Row(
-        children: [
-          const Expanded(
-            child: LeftMainContainer(),
-          ),
-          Expanded(
-              child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SimpleGroupedChips<int>(
-                  controller: pageFiltercontroller,
-                  onItemSelected: (selected) {
-                    setState(() {
-                      selectedAuthType = selected;
-                    });
-
-                    // setState(() {
-                    //   orderBy = tempA;
-                    //   isDescending = tempB;
-                    // });
-                  },
-                  values: const [0, 1],
-                  chipGroupStyle: ChipGroupStyle.minimize(
-                    checkedShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    selectedIcon: null,
-                    selectedColorItem: const Color(0xffe0b0ff),
-                    disabledColor: Colors.green,
-                    backgroundColorItem: Colors.white,
-                    itemTitleStyle: const TextStyle(
-                      fontSize: 16,
-                    ),
-                  ),
-                  itemsTitle: const [
-                    "Login",
-                    "Create an Account",
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: selectedAuthType == 0 ? LoginForm() : SignupForm(),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
-          ))
-        ],
-      )),
+      // body: AuthLaptop(),
+    body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth > 600) {
+            return authLaptop();
+          } else {
+            return authMobile();
+          }
+        },
+      ),
+   
     );
   }
+
+  Container authLaptop() {
+    return Container(
+        child: Row(
+      children: [
+        const Expanded(
+          child: LeftMainContainer(),
+        ),
+        Expanded(
+            child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SimpleGroupedChips<int>(
+                controller: pageFiltercontroller,
+                onItemSelected: (selected) {
+                  setState(() {
+                    selectedAuthType = selected;
+                  });
+
+                  // setState(() {
+                  //   orderBy = tempA;
+                  //   isDescending = tempB;
+                  // });
+                },
+                values: const [0, 1],
+                chipGroupStyle: ChipGroupStyle.minimize(
+                  checkedShape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  selectedIcon: null,
+                  selectedColorItem: const Color(0xffe0b0ff),
+                  disabledColor: Colors.green,
+                  backgroundColorItem: Colors.white,
+                  itemTitleStyle: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+                itemsTitle: const [
+                  "Login",
+                  "Create an Account",
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: selectedAuthType == 0 ? LoginForm() : SignupForm(),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+            ],
+          ),
+        ))
+      ],
+    ));
+  }
+
+  Container authMobile() {
+    return Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Expanded(
+          child: LeftMainContainer(),
+        ),
+        SimpleGroupedChips<int>(
+          controller: pageFiltercontroller,
+          onItemSelected: (selected) {
+            setState(() {
+              selectedAuthType = selected;
+            });
+
+            // setState(() {
+            //   orderBy = tempA;
+            //   isDescending = tempB;
+            // });
+          },
+          values: const [0, 1],
+          chipGroupStyle: ChipGroupStyle.minimize(
+            checkedShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
+            selectedIcon: null,
+            selectedColorItem: const Color(0xffe0b0ff),
+            disabledColor: Colors.green,
+            backgroundColorItem: Colors.white,
+            itemTitleStyle: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          itemsTitle: const [
+            "Login",
+            "Create an Account",
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: selectedAuthType == 0 ? LoginForm() : SignupForm(),
+        ),
+        const SizedBox(
+          height: 30,
+        )
+      ],
+    ));
+  }
+
 }
 
 class SignupForm extends StatefulWidget {
